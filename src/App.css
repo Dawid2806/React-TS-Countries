@@ -18,3 +18,6 @@
   --HeaderBackGroundColor: #2b3844;
   --TextAndIconInInput: #fff;
 }
+body {
+  background-color: var(--BackGroundColor);
+}
