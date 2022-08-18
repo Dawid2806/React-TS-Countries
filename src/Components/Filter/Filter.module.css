@@ -1,0 +1,14 @@
+.filterFeld {
+  margin: 1rem 1rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  color: var(--TextColor);
+  background-color: var(--HeaderBackGroundColor);
+  z-index: 999;
+}
+@media (min-width: 992px) {
+  .filterFeld {
+    margin: 2rem 1rem 0;
+  }
+}

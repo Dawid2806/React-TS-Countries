@@ -1,0 +1,24 @@
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 350px;
+  margin: 2rem 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: var(--HeaderBackGroundColor);
+  border-radius: 8px;
+}
+.icon {
+  font-size: 1.2rem;
+  color: var(--TextColor);
+}
+.input {
+  padding: 0.5rem 1.6rem;
+  border: none;
+  background-color: transparent;
+}
+.input:focus {
+  outline: none;
+}
+.input::placeholder {
+  color: var(--TextColor);
+}

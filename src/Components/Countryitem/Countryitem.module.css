@@ -1,0 +1,20 @@
+.countryBox {
+  margin: 2rem auto;
+  width: 260px;
+  background-color: var(--HeaderBackGroundColor);
+  color: var(--TextColor);
+  cursor: pointer;
+}
+
+.flag {
+  width: 100%;
+}
+.details {
+  padding: 1rem;
+}
+.countryName {
+  margin-bottom: 2rem;
+}
+.item {
+  margin-top: 0.4rem;
+}
