@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.flag {
+  width: 320px;
+  border-radius: 8px;
+}
+.detailsBox {
+  margin-top: 2rem;
+}
+.detailsBoxTitle {
+  color: var(--TextColor);
+}
+.detailTop,
+.detailBottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+.detailTopItem,
+.detailBottomItem {
+  margin-top: 0.4rem;
+}
+.detailTopItem,
+.detailBottomItem {
+  font-weight: 800;
+  color: var(--TextColor);
+}
+.detailTopItemValue,
+.detailBottomItemValue {
+  font-weight: 300;
+  margin-left: 0.3rem;
+}
+.borderCountriesContainer {
+  margin-top: 2rem;
+  color: var(--TextColor);
+}
+.borderCountriesBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 10px;
+  margin: 2rem 0;
+}
+.borderCountries {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 8px;
+  color: var(--TextColor);
+  background-color: var(--HeaderBackGroundColor);
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.104931);
+}
+.BackBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  margin: 2rem 2rem;
+  padding: 0.4rem 1.5rem;
+  background-color: var(--HeaderBackGroundColor);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.293139);
+  border-radius: 8px;
+}
+.button {
+  width: 100%;
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  color: var(--TextColor);
+}
+.icon {
+  font-size: 20px;
+  color: var(--TextColor);
+}
+@media (min-width: 1200px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .detailsBox {
+    width: 50%;
+  }
+  .flagBox {
+  }
+  .flag {
+    width: 560px;
+  }
+  .wrap {
+    display: flex;
+  }
+  .detailTop {
+    margin-right: 10rem;
+  }
+  .borderCountriesContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .borderCountriesBox {
+    display: flex;
+  }
+  .borderCountriesContainerTitle {
+    margin-right: 1rem;
+  }
+}
