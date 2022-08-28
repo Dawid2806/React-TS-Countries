@@ -1,44 +1,82 @@
-import { useQuery } from "react-query";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import { Countryitem } from "../Countryitem/Countryitem";
+import { Loading } from "../../Loading/Loading";
+import { CountryCard } from "../CountryCard/CountryCard";
 import classes from "./Countries.module.css";
 import { CountriesProps } from "./CountriesTypes";
-
+import { SearchInput } from "../../Search/SearchInput";
+import { FetchCountires } from "./FetchCountries";
 export const Countries: React.FC<CountriesProps> = (): JSX.Element => {
-  const fetchCountries = async () => {
-    const response = await fetch("https://restcountries.com/v2/all");
+  const [filtered, setFiltered] = useState<CountriesProps[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [isByRegion, SetIsByRegion] = useState<boolean>(false);
+  const { data, isLoading } = FetchCountires();
+  const searchCountries = (value: string) => {
+    setSearchInput(value);
 
-    return response.json();
-  };
-
-  const { data, isError, error, isLoading, isFetching } = useQuery(
-    "countries",
-    fetchCountries,
-    {
-      staleTime: 2000,
+    if (searchInput) {
+      const filteredCountries = data.filter((country: CountriesProps) => {
+        return Object.values(country)
+          .join("")
+          .toLowerCase()
+          .includes(value.toLowerCase());
+      });
+      setFiltered(filteredCountries);
+    } else {
+      setFiltered(data);
     }
-  );
-
-  if (isLoading) return <h3>Loading...</h3>;
-
+  };
+  if (isLoading) return <Loading />;
   return (
-    <div className={classes.container}>
-      {data.map((item: CountriesProps) => {
-        const { name, population, region, capital, flag } = item;
-        return (
-          <Link to={`/${name}`}>
-            <Countryitem
-              key={name}
-              name={name}
-              population={population}
-              region={region}
-              capital={capital}
-              flag={flag}
-            />
-          </Link>
-        );
-      })}
-    </div>
+    <>
+      <SearchInput
+        searchCountries={searchCountries}
+        searchInput={searchInput}
+        SetIsByRegion={SetIsByRegion}
+        region={[]}
+        setFiltered={setFiltered}
+      />
+      {searchInput.length > 0 || isByRegion ? (
+        <div className={classes.container}>
+          {filtered.map((item: CountriesProps) => {
+            const { name, population, region, capital, flag } = item;
+            return (
+              <>
+                <Link key={name} to={`/${name}`}>
+                  <CountryCard
+                    key={name}
+                    name={name}
+                    population={population}
+                    region={region}
+                    capital={capital}
+                    flag={flag}
+                  />
+                </Link>
+              </>
+            );
+          })}
+        </div>
+      ) : (
+        <div className={classes.container}>
+          {data.map((item: CountriesProps) => {
+            const { name, population, region, capital, flag } = item;
+            return (
+              <>
+                <Link key={name} to={`/${name}`}>
+                  <CountryCard
+                    key={name}
+                    name={name}
+                    population={population}
+                    region={region}
+                    capital={capital}
+                    flag={flag}
+                  />
+                </Link>
+              </>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };

@@ -18,22 +18,14 @@ function App() {
             <Route
               path="/"
               element={
-                <>
-                  <div className="searchBox">
-                    <SearchInput />
-                    <Filter />
-                  </div>
-                  <>
-                    <Countries
-                      key={""}
-                      name={""}
-                      population={""}
-                      region={""}
-                      capital={""}
-                      flag={""}
-                    />
-                  </>
-                </>
+                <Countries
+                  key={""}
+                  name={""}
+                  population={""}
+                  region={""}
+                  capital={""}
+                  flag={""}
+                />
               }
             />
             <Route path="/:name" element={<Country />} />

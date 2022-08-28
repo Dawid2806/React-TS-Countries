@@ -1,11 +1,11 @@
 import React from "react";
 import { CountriesProps } from "../Countries/CountriesTypes";
-import classes from "./Countryitem.module.css";
-export const Countryitem: React.FC<CountriesProps> = (props) => {
+import classes from "./CountryCard.module.css";
+export const CountryCard: React.FC<CountriesProps> = (props) => {
   return (
     <div className={classes.countryBox}>
       <div className={classes.img}>
-        <img className={classes.flag} src={props.flag} alt="" />
+        <img className={classes.flag} src={props.flag} alt="Country flag" />
       </div>
       <div className={classes.details}>
         <h1 className={classes.countryName}>{props.name}</h1>

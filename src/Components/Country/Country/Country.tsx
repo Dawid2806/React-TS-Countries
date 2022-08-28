@@ -1,11 +1,18 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import classes from "./Country.module.css";
-import arrow from "../../../assets/arrow.svg";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export const Country: React.FC = (children) => {
+import { CountryProps } from "./CountryTyps";
+import { Loading } from "../../Loading/Loading";
+import { CoutryItem } from "./CountryItem/CoutryItem";
+export const Country: React.FC = () => {
+  const navigate = useNavigate();
+  const backHandler = () => {
+    navigate("/");
+  };
+
   const { name } = useParams();
   const fetchCounty = async () => {
     const response = await fetch(`https://restcountries.com/v2/name/${name}`);
@@ -13,85 +20,52 @@ export const Country: React.FC = (children) => {
     return response.json();
   };
 
-  const { data, isError, error, isLoading, isFetching } = useQuery(
-    "country",
-    fetchCounty,
-    {
-      staleTime: 2000,
-    }
-  );
+  const { data, isLoading } = useQuery("country", fetchCounty, {
+    staleTime: 2000,
+  });
+  if (isLoading) return <Loading />;
+
   return (
     <>
-      <div className={classes.BackBox}>
+      <div className={classes.BackBox} onClick={backHandler}>
         <FontAwesomeIcon className={classes.icon} icon={faArrowLeftLong} />
+
         <button className={classes.button}>Back</button>
       </div>
-      <div className={classes.container}>
-        <div className={classes.flagBox}>
-          <img
-            className={classes.flag}
-            src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
-            alt=""
+
+      {data.map((el: CountryProps) => {
+        const {
+          flag,
+          name,
+          nativeName,
+          population,
+          region,
+          subregion,
+          capital,
+          topLevelDomain,
+          currencies,
+          languages,
+          borders,
+          numericCode,
+        } = el;
+        return (
+          <CoutryItem
+            key={numericCode}
+            flag={flag}
+            name={name}
+            nativeName={nativeName}
+            population={population}
+            region={region}
+            subregion={subregion}
+            capital={capital}
+            topLevelDomain={topLevelDomain}
+            currencies={currencies || ["none"]}
+            languages={languages}
+            borders={borders || ["None"]}
+            numericCode={numericCode}
           />
-        </div>
-        <div className={classes.detailsBox}>
-          <h2 className={classes.detailsBoxTitle}>Nazwa kraju</h2>
-          <div className={classes.wrap}>
-            <div className={classes.detailTop}>
-              <p className={classes.detailTopItem}>
-                Native Name:
-                <span className={classes.detailTopItemValue}> België</span>
-              </p>
-              <p className={classes.detailTopItem}>
-                Population:{" "}
-                <span className={classes.detailTopItemValue}> België</span>
-              </p>
-              <p className={classes.detailTopItem}>
-                Region:{" "}
-                <span className={classes.detailTopItemValue}> België</span>
-              </p>
-              <p className={classes.detailTopItem}>
-                Sub Region:
-                <span className={classes.detailTopItemValue}> België</span>
-              </p>
-              <p className={classes.detailTopItem}>
-                Capital:{" "}
-                <span className={classes.detailTopItemValue}> België</span>
-              </p>
-            </div>
-            <div className={classes.detailBottom}>
-              <p className={classes.detailBottomItem}>
-                Top Level Domain:{" "}
-                <span className={classes.detailBottomItemValue}> België</span>
-              </p>
-              <p className={classes.detailBottomItem}>
-                Currencies:{" "}
-                <span className={classes.detailBottomItemValue}> België</span>
-              </p>
-              <p className={classes.detailBottomItem}>
-                Languages:{" "}
-                <span className={classes.detailBottomItemValue}> België</span>
-              </p>
-            </div>
-          </div>
-          <div className={classes.borderCountriesContainer}>
-            <h3 className={classes.borderCountriesContainerTitle}>
-              Border Countries:{" "}
-            </h3>
-
-            <div className={classes.borderCountriesBox}>
-              <div className={classes.borderCountries}>Francja</div>
-              <div className={classes.borderCountries}>Francja</div>
-
-              <div className={classes.borderCountries}>Francja</div>
-              <div className={classes.borderCountries}>Francja</div>
-              <div className={classes.borderCountries}>Francja</div>
-              <div className={classes.borderCountries}>Francja</div>
-              <div className={classes.borderCountries}>Francja</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </>
   );
 };

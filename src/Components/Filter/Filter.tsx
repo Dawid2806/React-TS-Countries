@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import classes from "./Filter.module.css";
-
-export const Filter = () => {
-  const [region, setRegion] = useState<string>();
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setRegion(value);
-    console.log(region);
-  };
+interface FilterProps {
+  value: any;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+export const Filter: React.FC<FilterProps> = ({ value, onChange }) => {
   return (
     <form>
-      <select onChange={onChangeHandler} className={classes.filterFeld}>
+      <select onChange={onChange} className={classes.filterFeld} value={value}>
         <option disabled hidden value={""}>
           Filter by Region
         </option>
         <option value="africa">Africa</option>
-        <option value="america">America</option>
+        <option value="americas">America</option>
         <option value="asia">Asia</option>
         <option value="europe">Europe</option>
         <option value="oceania">Oceania</option>

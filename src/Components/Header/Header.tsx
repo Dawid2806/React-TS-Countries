@@ -5,7 +5,6 @@ import moonIconFully from "../../assets/moonFully.svg";
 export const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const darkModeHandler = () => {
-    console.log("test");
     if (document.documentElement.hasAttribute("data-theme")) {
       document.documentElement.removeAttribute("data-theme");
       setIsDarkMode(false);
