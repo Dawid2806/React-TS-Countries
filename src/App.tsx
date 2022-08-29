@@ -15,19 +15,7 @@ function App() {
         <Header />
         <Routes>
           <>
-            <Route
-              path="/"
-              element={
-                <Countries
-                  key={""}
-                  name={""}
-                  population={""}
-                  region={""}
-                  capital={""}
-                  flag={""}
-                />
-              }
-            />
+            <Route path="/" element={<Countries />} />
             <Route path="/:name" element={<Country />} />
             <Route path="*" element={<h2>idz stąd</h2>} />
           </>

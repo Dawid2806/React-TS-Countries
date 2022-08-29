@@ -3,50 +3,20 @@ import classes from "./SearchInput.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Filter } from "../Filter/Filter";
-import { CountriesProps } from "../Country/Countries/CountriesTypes";
 
 interface SearchInputProps {
   searchCountries: (value: string) => void;
   searchInput: string;
-  setFiltered: CountriesProps;
-  SetIsByRegion: RegionProps[];
-  region: RegionProps[];
-}
-interface RegionProps {
-  name: string;
+  onRegionChange: (region: string) => void;
+  selectedRegion: string | null;
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
   searchCountries,
   searchInput,
-  setFiltered,
-  SetIsByRegion,
+  onRegionChange,
+  selectedRegion,
 }) => {
-  const region: any = [
-    {
-      name: "Africa",
-    },
-    {
-      name: "Asia",
-    },
-    {
-      name: "Oceania",
-    },
-    {
-      name: "Americas",
-    },
-    {
-      name: "Europe",
-    },
-  ];
-
-  const fetchCountryByRegion = async (region: string) => {
-    const res = await fetch(`https://restcountries.com/v2/region/${region}`);
-    const data = await res.json();
-    setFiltered(data);
-    SetIsByRegion(true);
-  };
-
   return (
     <div className={classes.container}>
       <div className={classes.inputContainer}>
@@ -64,10 +34,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         </div>
       </div>
       <Filter
-        value={region.name}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          fetchCountryByRegion(e.currentTarget.value)
-        }
+        value={selectedRegion}
+        onChange={(e) => onRegionChange(e.target.value)}
       />
     </div>
   );
