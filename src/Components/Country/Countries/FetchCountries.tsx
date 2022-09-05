@@ -1,14 +1,32 @@
 import { useQuery } from "react-query";
+import { CountriesProps } from "./CountriesTypes";
 
-export const FetchCountires = () => {
-  const fetchCountries = async () => {
-    const response = await fetch("https://restcountries.com/v2/all");
+const fetchCountries = async (region: string | null) => {
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v2/${region ? "region" : "all"}/${
+        region || ""
+      }`
+    );
 
     return response.json();
-  };
-  const { data, isLoading } = useQuery("countries", fetchCountries, {
-    staleTime: 2000,
-  });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-  return { fetchCountries, data, isLoading };
+interface UseFetchCountriesArgs {
+  region: string | null;
+}
+
+export const useFetchCountries = ({ region }: UseFetchCountriesArgs) => {
+  const { data, isLoading, isError } = useQuery<CountriesProps[]>(
+    ["countries", region],
+    async () => await fetchCountries(region),
+    {
+      staleTime: 2000,
+    }
+  );
+
+  return { fetchCountries, data, isLoading, isError };
 };

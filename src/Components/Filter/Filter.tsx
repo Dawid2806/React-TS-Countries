@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./Filter.module.css";
 interface FilterProps {
-  value: any;
+  value: string | null;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 export const Filter: React.FC<FilterProps> = ({ value, onChange }) => {
   return (
     <form>
-      <select onChange={onChange} className={classes.filterFeld} value={value}>
+      <select
+        onChange={onChange}
+        className={classes.filterFeld}
+        value={value || ""}
+      >
         <option disabled hidden value={""}>
           Filter by Region
         </option>

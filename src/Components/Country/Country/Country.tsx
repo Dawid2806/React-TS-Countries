@@ -20,7 +20,7 @@ export const Country: React.FC = () => {
     return response.json();
   };
 
-  const { data, isLoading } = useQuery("country", fetchCounty, {
+  const { data, isLoading } = useQuery<CountryProps[]>("country", fetchCounty, {
     staleTime: 2000,
   });
   if (isLoading) return <Loading />;
@@ -33,7 +33,7 @@ export const Country: React.FC = () => {
         <button className={classes.button}>Back</button>
       </div>
 
-      {data.map((el: CountryProps) => {
+      {data?.map((el) => {
         const {
           flag,
           name,
